@@ -14,7 +14,7 @@ const INITIAL_STATE = {
 
 export const useGameState = () => {
     const [gameState, setGameState] = useState(INITIAL_STATE);
-    const [apiKey, setApiKey] = useState(localStorage.getItem('openai_api_key') || '');
+    const [apiKey, setApiKey] = useState(localStorage.getItem('openai_api_key') || 'YLvpasFankFIoGSfrp9yARmxd8U5SMhus8WxE3U4PqevRnWzhMRr08XYPh2w_XxJI-6Lgz_i4cT3BlbkFJXemGTtVscYYeM7uD3M3FcaDIlbyVhXP8SIQiaTwbRVlhjp2x_4-LLpPSNyu-0xbvlvdUnHrkoA');
 
     const updateApiKey = (key) => {
         setApiKey(key);

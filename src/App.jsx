@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import Layout from './components/Layout';
 import StartScreen from './components/StartScreen';
-import CaseView from './components/CaseView';
-import InvestigationView from './components/InvestigationView';
 import FinalView from './components/FinalView';
+import GameDashboard from './components/GameDashboard';
 import LeaderboardView from './components/LeaderboardView';
 import TutorialModal from './components/TutorialModal';
 import { useGameState } from './hooks/useGameState';
@@ -110,32 +109,19 @@ function App() {
               />
             )}
 
-            {/* Show Case Details if we have a case */}
+            {/* Game Dashboard (Replaces CaseView & InvestigationView) */}
             {gameState.case && gameState.phase !== 'init' && gameState.phase !== 'final' && (
-              <div className="h-full flex flex-col">
-                <div className="mb-6">
-                  <CaseView
-                    caseData={gameState.case}
-                    onNext={() => { }}
-                  />
-                </div>
-
-                {/* Show Input for Turn 1 and Turn 2 */}
-                {(gameState.phase === 'case_generation' || gameState.phase === 'turn1' || gameState.phase === 'turn2') && (
-                  <div className="flex-1 border-t border-gray-800 pt-6">
-                    <InvestigationView
-                      phase={gameState.phase === 'case_generation' ? 'turn1' : (gameState.phase === 'turn1' ? 'turn2' : 'turn2')}
-                      clues={gameState.clues}
-                      deepClues={gameState.deepClues}
-                      onSubmitAction={submitAction}
-                      loading={gameState.loading}
-                      showInput={gameState.phase !== 'turn2'}
-                    />
-                  </div>
-                )}
-              </div>
+              <GameDashboard
+                caseData={gameState.case}
+                clues={gameState.clues}
+                deepClues={gameState.deepClues}
+                phase={gameState.phase === 'case_generation' ? 'turn1' : (gameState.phase === 'turn1' ? 'turn2' : 'turn2')}
+                onSubmitAction={submitAction}
+                loading={gameState.loading}
+              />
             )}
 
+            {/* Transition to Final View Logic */}
             {gameState.phase === 'turn2' && (
               <div className="mt-8 border-t border-gray-800 pt-8">
                 <FinalView
